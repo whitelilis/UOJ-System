@@ -1113,7 +1113,7 @@ RunCompilerResult compile_java7(const string &name, const string &path = work_pa
 	executef("echo package %s\\; | cat - %s/%s.code >%s/%s/%s.java", name.c_str(), path.c_str(), name.c_str(), path.c_str(), name.c_str(), main_class.c_str());
 
 	return run_compiler((path + "/" + name).c_str(),
-			(main_path + "/run/runtime/jdk1.7.0_76/bin/javac").c_str(), (main_class + ".java").c_str(), NULL);
+			(main_path + "/run/runtime/jdk1.7.0_76/bin/javac").c_str(), "-encoding", "UTF-8", (main_class + ".java").c_str(), NULL);
 }
 RunCompilerResult compile_java8(const string &name, const string &path = work_path) {
 	RunCompilerResult ret = prepare_java_source(name, path);
@@ -1126,7 +1126,7 @@ RunCompilerResult compile_java8(const string &name, const string &path = work_pa
 	executef("echo package %s\\; | cat - %s/%s.code >%s/%s/%s.java", name.c_str(), path.c_str(), name.c_str(), path.c_str(), name.c_str(), main_class.c_str());
 
 	return run_compiler((path + "/" + name).c_str(),
-			(main_path + "/run/runtime/jdk1.8.0_31/bin/javac").c_str(), (main_class + ".java").c_str(), NULL);
+			(main_path + "/run/runtime/jdk1.8.0_31/bin/javac").c_str(), "-encoding", "UTF-8", (main_class + ".java").c_str(), NULL);
 }
 
 RunCompilerResult compile(const char *name)  {
