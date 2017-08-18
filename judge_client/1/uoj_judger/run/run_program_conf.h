@@ -524,8 +524,38 @@ void init_conf(const RunProgramConfig &config) {
 		readable_file_name_set.insert("/usr/lib/tls");
 		readable_file_name_set.insert("/usr/lib");
 		readable_file_name_set.insert("/etc/services");
-
+	} else if (config.type == "JS") {
+		syscall_max_cnt[__NR_epoll_wait              ] = -1;
+		syscall_max_cnt[__NR_epoll_ctl               ] = -1;
+		syscall_max_cnt[__NR_poll                    ] = -1;
+		syscall_max_cnt[__NR_prctl                   ] = -1;
+		syscall_max_cnt[__NR_getegid                 ] = -1;
+		syscall_max_cnt[__NR_getgid                  ] = -1;
+		syscall_max_cnt[__NR_geteuid                 ] = -1;
+		syscall_max_cnt[__NR_set_tid_address         ] = -1;
+		syscall_max_cnt[__NR_set_robust_list         ] = -1;
+		syscall_max_cnt[__NR_futex                   ] = -1;
+		syscall_max_cnt[__NR_getdents                ] = -1;
+		syscall_max_cnt[__NR_clone                   ] = -1;
+		syscall_max_cnt[__NR_socket                  ] = -1;
+		syscall_max_cnt[__NR_connect                 ] = -1;
+		syscall_max_cnt[__NR_pipe2                   ] = -1;
+		syscall_max_cnt[__NR_clock_getres            ] = -1;
+		syscall_max_cnt[__NR_epoll_create1           ] = -1;
+		syscall_max_cnt[__NR_eventfd2                ] = -1;
+		syscall_max_cnt[__NR_getuid                  ] = -1;
+		readable_file_name_set.insert("/usr");
+		readable_file_name_set.insert("/usr/bin");
+		readable_file_name_set.insert("/lib/tls/x86_64");
+		readable_file_name_set.insert("/lib/x86_64");
+		readable_file_name_set.insert("/lib/tls");
+		readable_file_name_set.insert("/lib");
+		readable_file_name_set.insert("/usr/lib/tls/x86_64");
+		readable_file_name_set.insert("/usr/lib/x86_64");
+		readable_file_name_set.insert("/usr/lib/tls");
+		readable_file_name_set.insert("/usr/lib");
 	}
+
 }
 
 string read_string_from_regs(reg_val_t addr, pid_t pid) {

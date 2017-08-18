@@ -834,6 +834,8 @@ RunResult run_submission_program(
 		program_type = "java8u31";
 	} else if (lang == "PHP") {
 		program_type = "PHP";
+	} else if (lang == "JS") {
+		program_type = "JS";
 	}
 
 	rpc.result_file_name = result_path + "/run_submission_program.txt";
@@ -1166,6 +1168,9 @@ RunCompilerResult compile(const char *name)  {
 		return compile_pas(name);
 	}
 	if (lang == "PHP") {
+		return compile_non(name);
+	}
+	if (lang == "JS") {
 		return compile_non(name);
 	}
 

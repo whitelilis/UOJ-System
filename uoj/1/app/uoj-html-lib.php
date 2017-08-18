@@ -414,6 +414,9 @@ function echoSubmissionContent($submission, $requirement) {
 				case 'PHP':
 					$sh_class = 'sh_php';
 					break;
+				case 'JS':
+					$sh_class = 'sh_javascript';
+					break;
 				default:
 					$sh_class = '';
 					break;
