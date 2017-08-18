@@ -42,7 +42,7 @@
 				$content['first_test_config'] = $content['config'];
 				$content['config'] = $content['final_test_config'];
 				unset($content['final_test_config']);
-				$esc_content = mysql_real_escape_string(json_encode($content));
+				$esc_content = DB::escape(json_encode($content));
 			
 				DB::update("update submissions set status = 'Judged, Waiting', content = '$esc_content' where id = ${_POST['id']}");
 			}

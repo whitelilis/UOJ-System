@@ -417,6 +417,12 @@ function echoSubmissionContent($submission, $requirement) {
 				case 'JS':
 					$sh_class = 'sh_javascript';
 					break;
+				case 'C#':
+					$sh_class = 'sh_csharp';
+					break;
+				case 'ObjectC':
+					$sh_class = 'sh_cpp';
+					break;
 				default:
 					$sh_class = '';
 					break;

@@ -836,6 +836,10 @@ RunResult run_submission_program(
 		program_type = "PHP";
 	} else if (lang == "JS") {
 		program_type = "JS";
+	} else if (lang == "C#") {
+		program_type = "C#";
+	} else if (lang == "ObjectC") {
+		program_type = "ObjectC";
 	}
 
 	rpc.result_file_name = result_path + "/run_submission_program.txt";
@@ -1072,6 +1076,16 @@ RunCompilerResult prepare_java_source(const string &name, const string &path = w
 	return res;
 }
 
+RunCompilerResult compile_cs(const string &name, const string &path = work_path) {
+	return run_compiler(path.c_str(), 
+			"/usr/bin/mcs", (name + ".code").c_str(), "-o", name.c_str(), NULL);
+}
+
+RunCompilerResult compile_oc(const string &name, const string &path = work_path) {
+	return run_compiler(path.c_str(), 
+			"/bin/cp", (name + ".code").c_str(), name.c_str(), NULL);
+}
+
 RunCompilerResult compile_non(const string &name, const string &path = work_path) {
 	return run_compiler(path.c_str(), 
 			"/bin/cp", (name + ".code").c_str(), name.c_str(), NULL);
@@ -1173,7 +1187,12 @@ RunCompilerResult compile(const char *name)  {
 	if (lang == "JS") {
 		return compile_non(name);
 	}
-
+	if (lang == "C#") {
+		return compile_cs(name);
+	}
+	if (lang == "ObjectC") {
+		return compile_oc(name);
+	}
 	RunCompilerResult res = RunCompilerResult::failed_result();
 	res.info = "This language is not supported yet.";
 	return res;

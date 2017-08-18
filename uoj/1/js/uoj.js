@@ -609,6 +609,10 @@ function get_codemirror_mode(lang) {
 			return 'text/x-php';
 		case 'JS':
 			return 'text/x-javascript';
+		case 'C#':
+			return 'text/x-csharp';
+		case 'ObjectC':
+			return 'text/x-objectivec';
 		case 'Pascal':
 			return 'text/x-pascal';
 		case 'text':

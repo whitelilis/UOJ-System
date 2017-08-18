@@ -219,6 +219,9 @@ void parse_args(int argc, char **argv) {
 	} else if (run_program_config.type == "JS"){
 		string pre[1] = {"/home/local_main_judger/.nvm/versions/node/v6.9.2/bin/node"};
 		run_program_config.argv.insert(run_program_config.argv.begin(), pre, pre + 1);
+	} else if (run_program_config.type == "C#"){
+		string pre[1] = {"/usr/bin/mono"};
+		run_program_config.argv.insert(run_program_config.argv.begin(), pre, pre + 1);
 	}
 
 }
