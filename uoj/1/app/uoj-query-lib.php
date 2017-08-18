@@ -94,7 +94,7 @@ function queryBlog($id) {
 function queryBlogTags($id) {
 	$tags = array();
 	$result = DB::select("select tag from blogs_tags where blog_id = $id order by id");
-	while ($row = DB::fetch($result, MYSQL_NUM)) {
+	while ($row = DB::fetch($result, MYSQLI_NUM)) {
 		$tags[] = $row[0];
 	}
 	return $tags;

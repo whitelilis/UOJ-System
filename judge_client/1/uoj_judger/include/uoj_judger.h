@@ -632,8 +632,8 @@ RunResult vrun_program(
 		<< " " << "--err=" << escapeshellarg(error_file_name)
 		<< " " << "--tl=" << limit.time
 		<< " " << "--ml=" << limit.memory
-		<< " " << "--ol=" << limit.output
-		/*<< " " << "--show-trace-details"*/;
+		<< " " << "--ol=" << limit.output;
+		//<< " " << "--show-trace-details";
 	for (vector<string>::const_iterator it = rest.begin(); it != rest.end(); it++) {
 		sout << " " << escapeshellarg(*it);
 	}
@@ -1093,19 +1093,19 @@ RunCompilerResult compile_non(const string &name, const string &path = work_path
 
 RunCompilerResult compile_c(const string &name, const string &path = work_path) {
 	return run_compiler(path.c_str(), 
-			"/usr/bin/gcc-4.8", "-o", name.c_str(), "-x", "c", (name + ".code").c_str(), "-lm", "-O2", "-DONLINE_JUDGE", NULL);
+			"/usr/bin/gcc", "-o", name.c_str(), "-x", "c", (name + ".code").c_str(), "-lm", "-O2", "-DONLINE_JUDGE", NULL);
 }
 RunCompilerResult compile_pas(const string &name, const string &path = work_path) {
 	return run_compiler(path.c_str(),
-			"/usr/bin/fpc-2.6.2", (name + ".code").c_str(), "-O2", NULL);
+			"/usr/bin/fpc", (name + ".code").c_str(), "-O2", NULL);
 }
 RunCompilerResult compile_cpp(const string &name, const string &path = work_path) {
 	return run_compiler(path.c_str(),
-			"/usr/bin/g++-4.8", "-o", name.c_str(), "-x", "c++", (name + ".code").c_str(), "-lm", "-O2", "-DONLINE_JUDGE", NULL);
+			"/usr/bin/g++", "-o", name.c_str(), "-x", "c++", (name + ".code").c_str(), "-lm", "-O2", "-DONLINE_JUDGE", NULL);
 }
 RunCompilerResult compile_cpp11(const string &name, const string &path = work_path) {
 	return run_compiler(path.c_str(),
-			"/usr/bin/g++-4.8", "-o", name.c_str(), "-x", "c++", (name + ".code").c_str(), "-lm", "-O2", "-DONLINE_JUDGE", "-std=c++11", NULL);
+			"/usr/bin/g++", "-o", name.c_str(), "-x", "c++", (name + ".code").c_str(), "-lm", "-O2", "-DONLINE_JUDGE", "-std=c++11", NULL);
 }
 RunCompilerResult compile_python2_7(const string &name, const string &path = work_path) {
 	return run_compiler(path.c_str(),
@@ -1209,11 +1209,11 @@ RunCompilerResult compile_pas_with_implementer(const string &name, const string 
 }
 RunCompilerResult compile_cpp_with_implementer(const string &name, const string &path = work_path) {
 	return run_compiler(path.c_str(),
-			"/usr/bin/g++-4.8", "-o", name.c_str(), "implementer.cpp", "-x", "c++", (name + ".code").c_str(), "-lm", "-O2", "-DONLINE_JUDGE", NULL);
+			"/usr/bin/g++", "-o", name.c_str(), "implementer.cpp", "-x", "c++", (name + ".code").c_str(), "-lm", "-O2", "-DONLINE_JUDGE", NULL);
 }
 RunCompilerResult compile_cpp11_with_implementer(const string &name, const string &path = work_path) {
 	return run_compiler(path.c_str(),
-			"/usr/bin/g++-4.8", "-o", name.c_str(), "implementer.cpp", "-x", "c++", (name + ".code").c_str(), "-lm", "-O2", "-DONLINE_JUDGE", "-std=c++11", NULL);
+			"/usr/bin/g++", "-o", name.c_str(), "implementer.cpp", "-x", "c++", (name + ".code").c_str(), "-lm", "-O2", "-DONLINE_JUDGE", "-std=c++11", NULL);
 }
 /*
 RunCompilerResult compile_python2_7(const string &name, const string &path = work_path) {

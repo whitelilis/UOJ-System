@@ -323,6 +323,7 @@ void init_conf(const RunProgramConfig &config) {
 	}
 
 	if (config.type == "python2.7") {
+		syscall_max_cnt[99] = -1;
 		syscall_max_cnt[__NR_set_tid_address] = 1;
 		syscall_max_cnt[__NR_set_robust_list] = 1;
 		syscall_max_cnt[__NR_futex          ] = -1;
@@ -341,6 +342,7 @@ void init_conf(const RunProgramConfig &config) {
 		statable_file_name_set.insert("/usr");
 		statable_file_name_set.insert("/usr/bin");
 	} else if (config.type == "python3.4") {
+		syscall_max_cnt[99] = -1;
 		syscall_max_cnt[__NR_set_tid_address] = 1;
 		syscall_max_cnt[__NR_set_robust_list] = 1;
 		syscall_max_cnt[__NR_futex          ] = -1;
@@ -429,7 +431,12 @@ void init_conf(const RunProgramConfig &config) {
 		statable_file_name_set.insert("/usr/java/");
 		statable_file_name_set.insert("/tmp/");
 	} else if (config.type == "compiler") {
+		syscall_max_cnt[99] = -1;
+		syscall_max_cnt[59] = -1;
+		syscall_max_cnt[35]                   = -1; // for c#        
 		syscall_max_cnt[__NR_getppid        ] = -1; // for c#
+		syscall_max_cnt[62                  ] = -1; // for c#
+		syscall_max_cnt[108                 ] = -1; // for c#
 		syscall_max_cnt[__NR_gettid         ] = -1;
 		syscall_max_cnt[__NR_set_tid_address] = -1;
 		syscall_max_cnt[__NR_set_robust_list] = -1;
@@ -480,7 +487,7 @@ void init_conf(const RunProgramConfig &config) {
 		writable_file_name_set.insert(config.work_path + "/");
 
 		readable_file_name_set.insert(abspath(0, string(self_path) + "/../runtime") + "/");
-
+		readable_file_name_set.insert("/home/local_main_judger/.nvm/versions/node/v6.9.2/bin/*");
 		readable_file_name_set.insert("system_root");
 		readable_file_name_set.insert("/usr/");
 		readable_file_name_set.insert("/lib/");
@@ -498,6 +505,17 @@ void init_conf(const RunProgramConfig &config) {
 		readable_file_name_set.insert("/etc/timezone");
 		readable_file_name_set.insert("/etc/fpc-2.6.2.cfg.d/");
 		readable_file_name_set.insert("/etc/fpc.cfg");
+		readable_file_name_set.insert("/etc/mono/config"); // for mono c#
+		readable_file_name_set.insert("/dev/shm/"); // for mono c#
+		writable_file_name_set.insert("/dev/shm/"); // for mono c#
+		readable_file_name_set.insert("/proc/self"); // for mono c#
+		writable_file_name_set.insert("/proc/self"); // for mono c#
+		readable_file_name_set.insert("/proc/self/*"); // for mono c#
+		writable_file_name_set.insert("/proc/self/*"); // for mono c#
+		readable_file_name_set.insert("/proc/self/task/*"); // for mono c#
+		writable_file_name_set.insert("/proc/self/task/*"); // for mono c#
+		readable_file_name_set.insert("/proc/self/task/"); // for mono c#
+		writable_file_name_set.insert("/proc/self/task/"); // for mono c#
 
 		statable_file_name_set.insert("/*");
 	} else if (config.type == "PHP") {
@@ -508,15 +526,21 @@ void init_conf(const RunProgramConfig &config) {
 		syscall_max_cnt[__NR_clone                   ] = -1;
 		syscall_max_cnt[__NR_socket                  ] = -1;
 		syscall_max_cnt[__NR_connect                 ] = -1;
+		readable_file_name_set.insert("/etc/php5/cli/php.ini");
+		readable_file_name_set.insert("/etc/php5/cli/conf.d");
+		readable_file_name_set.insert("/etc/php5/cli/conf.d/*");
+
+		readable_file_name_set.insert("/etc/php/7.0/cli/php.ini");
+		readable_file_name_set.insert("/etc/php/7.0/cli/conf.d");
+		readable_file_name_set.insert("/etc/php/7.0/cli/conf.d/*");
+		readable_file_name_set.insert("/usr/lib/php/20151012/*");
+		readable_file_name_set.insert("/usr/lib/php5/20121212/*");
 		readable_file_name_set.insert("/usr");
 		readable_file_name_set.insert("/usr/bin");
 		readable_file_name_set.insert("/usr/bin/php");
 		readable_file_name_set.insert("/usr/bin/php5");
+		readable_file_name_set.insert("/usr/bin/php7.0");
 		readable_file_name_set.insert("/etc/alternatives/php");
-		readable_file_name_set.insert("/etc/php5/cli/php.ini");
-		readable_file_name_set.insert("/etc/php5/cli/conf.d");
-		readable_file_name_set.insert("/etc/php5/cli/conf.d/*");
-		readable_file_name_set.insert("/usr/lib/php5/20121212/*");
 		readable_file_name_set.insert("/etc/nsswitch.conf");
 		readable_file_name_set.insert("/lib/tls/x86_64");
 		readable_file_name_set.insert("/lib/x86_64");
@@ -558,6 +582,14 @@ void init_conf(const RunProgramConfig &config) {
 		readable_file_name_set.insert("/usr/lib/tls");
 		readable_file_name_set.insert("/usr/lib");
 	} else if (config.type == "C#") {
+		syscall_max_cnt[24                           ] = -1;
+		syscall_max_cnt[35                           ] = -1; // C# use it sometimes, faint, __NR_nanosleep
+		syscall_max_cnt[62                           ] = -1;
+		syscall_max_cnt[77                           ] = -1;
+		syscall_max_cnt[137                          ] = -1;
+		syscall_max_cnt[204                          ] = -1;
+		syscall_max_cnt[218                          ] = -1;
+		syscall_max_cnt[234                          ] = -1;
 		syscall_max_cnt[__NR_set_robust_list         ] = -1;
 		syscall_max_cnt[__NR_futex                   ] = -1;
 		syscall_max_cnt[__NR_getdents                ] = -1;
@@ -569,6 +601,7 @@ void init_conf(const RunProgramConfig &config) {
 		syscall_max_cnt[__NR_eventfd2                ] = -1;
 		syscall_max_cnt[__NR_getuid                  ] = -1;
 		readable_file_name_set.insert("/usr");
+		readable_file_name_set.insert("/usr/lib/mono/");
 		readable_file_name_set.insert("/usr/bin");
 		readable_file_name_set.insert("/lib/tls/x86_64");
 		readable_file_name_set.insert("/lib/x86_64");
@@ -578,6 +611,12 @@ void init_conf(const RunProgramConfig &config) {
 		readable_file_name_set.insert("/usr/lib/x86_64");
 		readable_file_name_set.insert("/usr/lib/tls");
 		readable_file_name_set.insert("/usr/lib");
+		readable_file_name_set.insert("/proc/");
+		readable_file_name_set.insert("/etc/mono/config");
+		readable_file_name_set.insert("/dev/shm/"); // for mono c#
+		writable_file_name_set.insert("/dev/shm/"); // for mono c#
+		readable_file_name_set.insert("/proc/self/task/"); // for mono c#
+		writable_file_name_set.insert("/proc/self/task/"); // for mono c#
 	} else if (config.type == "ObjectC") {
 		syscall_max_cnt[__NR_set_robust_list         ] = -1;
 		syscall_max_cnt[__NR_futex                   ] = -1;

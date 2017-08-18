@@ -10,7 +10,7 @@ class DB {
 			echo '========================\n';
 		}
 		if (!$uojMySQL) {
-			echo 'There is something wrong with database >_<.... ' . mysql_error();
+			echo 'There is something wrong with database >_<.... ' . mysqli_error($uojMySQL);
 			die();
 		}
 	}
@@ -37,7 +37,7 @@ class DB {
 	}
 	public static function insert_id() {
 		global $uojMySQL;
-		return mysql_insert_id();
+		return mysqli_insert_id($uojMySQL);
 	}
 		
 	public static function delete($q) {
