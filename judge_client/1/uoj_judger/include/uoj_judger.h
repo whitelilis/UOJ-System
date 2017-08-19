@@ -1082,8 +1082,9 @@ RunCompilerResult compile_cs(const string &name, const string &path = work_path)
 }
 
 RunCompilerResult compile_oc(const string &name, const string &path = work_path) {
+	executef("cat %s/%s.code >%s/%s.m", path.c_str(), name.c_str(), path.c_str(), name.c_str());
 	return run_compiler(path.c_str(), 
-			"/bin/cp", (name + ".code").c_str(), name.c_str(), NULL);
+			"/usr/bin/gcc", "-o", name.c_str(), (name + ".m").c_str(), "-MMD", "-MP", "-DGNUSTEP", "-DGNUSTEP_BASE_LIBRARY=1", "-DGNU_GUI_LIBRARY=1", "-DGNU_RUNTIME=1", "-DGNUSTEP_BASE_LIBRARY=1", "-fno-strict-aliasing", "-fexceptions", "-fobjc-exceptions", "-D_NATIVE_OBJC_EXCEPTIONS", "-pthread", "-fPIC", "-Wall", "-DGSWARN", "-DGSDIAGNOSE", "-Wno-import", "-g", "-O2", "-fgnu-runtime", "-fconstant-string-class=NSConstantString", "-I.", "-I/home/local_main_judger/GNUstep/Library/Headers", "-I/usr/local/include/GNUstep", "-I/usr/include/GNUstep", "-lobjc", "-lgnustep-base", NULL); 
 }
 
 RunCompilerResult compile_non(const string &name, const string &path = work_path) {

@@ -437,6 +437,7 @@ void init_conf(const RunProgramConfig &config) {
 		syscall_max_cnt[__NR_getppid        ] = -1; // for c#
 		syscall_max_cnt[62                  ] = -1; // for c#
 		syscall_max_cnt[108                 ] = -1; // for c#
+		syscall_max_cnt[262                 ] = -1; // for objectC
 		syscall_max_cnt[__NR_gettid         ] = -1;
 		syscall_max_cnt[__NR_set_tid_address] = -1;
 		syscall_max_cnt[__NR_set_robust_list] = -1;
@@ -486,6 +487,7 @@ void init_conf(const RunProgramConfig &config) {
 		readable_file_name_set.insert(config.work_path);
 		writable_file_name_set.insert(config.work_path + "/");
 
+		statable_file_name_set.insert("/home/local_main_judger/GNUstep/"); // objectC
 		readable_file_name_set.insert(abspath(0, string(self_path) + "/../runtime") + "/");
 		readable_file_name_set.insert("/home/local_main_judger/.nvm/versions/node/v6.9.2/bin/*");
 		readable_file_name_set.insert("system_root");
@@ -494,6 +496,8 @@ void init_conf(const RunProgramConfig &config) {
 		readable_file_name_set.insert("/lib64/");
 		readable_file_name_set.insert("/bin/");
 		readable_file_name_set.insert("/sbin/");
+		readable_file_name_set.insert("/etc/ld.so.conf"); // for objectC
+		readable_file_name_set.insert("/etc/ld.so.conf.d/"); // for objectC
 		// readable_file_name_set.insert("/proc/meminfo");
 		// readable_file_name_set.insert("/proc/self/");
 
@@ -618,6 +622,8 @@ void init_conf(const RunProgramConfig &config) {
 		readable_file_name_set.insert("/proc/self/task/"); // for mono c#
 		writable_file_name_set.insert("/proc/self/task/"); // for mono c#
 	} else if (config.type == "ObjectC") {
+		syscall_max_cnt[137                          ] = -1;
+		syscall_max_cnt[218                          ] = -1;
 		syscall_max_cnt[__NR_set_robust_list         ] = -1;
 		syscall_max_cnt[__NR_futex                   ] = -1;
 		syscall_max_cnt[__NR_getdents                ] = -1;
@@ -639,6 +645,8 @@ void init_conf(const RunProgramConfig &config) {
 		readable_file_name_set.insert("/usr/lib/x86_64");
 		readable_file_name_set.insert("/usr/lib/tls");
 		readable_file_name_set.insert("/usr/lib");
+		readable_file_name_set.insert("/usr/lib/libgnustep-base.so.1.24");
+		readable_file_name_set.insert("/proc/");
 	}
 
 }
