@@ -660,6 +660,7 @@ RunResult run_program(const RunProgramConfig &rpc) {
 		<< " " << "--ml=" << rpc.limit.memory
 		<< " " << "--ol=" << rpc.limit.output
 		<< " " << "--type=" << rpc.type
+		//<< " " << "--show-trace-details"
 		<< " " << "--work-path=" << rpc.work_path;
 	for (vector<string>::const_iterator it = rpc.readable_file_names.begin(); it != rpc.readable_file_names.end(); it++) {
 		sout << " " << "--add-readable=" << escapeshellarg(*it);

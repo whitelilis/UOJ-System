@@ -588,6 +588,7 @@ void init_conf(const RunProgramConfig &config) {
 	} else if (config.type == "C#") {
 		syscall_max_cnt[24                           ] = -1;
 		syscall_max_cnt[35                           ] = -1; // C# use it sometimes, faint, __NR_nanosleep
+		syscall_max_cnt[130                          ] = -1; // C# use it sometimes, faint, __NR_rt_sigsuspend
 		syscall_max_cnt[62                           ] = -1;
 		syscall_max_cnt[77                           ] = -1;
 		syscall_max_cnt[137                          ] = -1;
