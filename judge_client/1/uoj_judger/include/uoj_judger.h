@@ -632,8 +632,8 @@ RunResult vrun_program(
 		<< " " << "--err=" << escapeshellarg(error_file_name)
 		<< " " << "--tl=" << limit.time
 		<< " " << "--ml=" << limit.memory
+		//<< " " << "--show-trace-details"
 		<< " " << "--ol=" << limit.output;
-		//<< " " << "--show-trace-details";
 	for (vector<string>::const_iterator it = rest.begin(); it != rest.end(); it++) {
 		sout << " " << escapeshellarg(*it);
 	}
@@ -841,6 +841,8 @@ RunResult run_submission_program(
 		program_type = "C#";
 	} else if (lang == "ObjectC") {
 		program_type = "ObjectC";
+	} else if (lang == "GO") {
+		program_type = "GO";
 	}
 
 	rpc.result_file_name = result_path + "/run_submission_program.txt";
@@ -1077,6 +1079,11 @@ RunCompilerResult prepare_java_source(const string &name, const string &path = w
 	return res;
 }
 
+RunCompilerResult compile_go(const string &name, const string &path = work_path) {
+	executef("cat %s/%s.code >%s/%s.go", path.c_str(), name.c_str(), path.c_str(), name.c_str());
+	return run_compiler(path.c_str(), 
+			"/usr/local/go/bin/go", "build", "-o", name.c_str(), (name + ".go").c_str(), NULL);
+}
 RunCompilerResult compile_cs(const string &name, const string &path = work_path) {
 	return run_compiler(path.c_str(), 
 			"/usr/bin/mcs", (name + ".code").c_str(), "-o", name.c_str(), NULL);
@@ -1194,6 +1201,9 @@ RunCompilerResult compile(const char *name)  {
 	}
 	if (lang == "ObjectC") {
 		return compile_oc(name);
+	}
+	if (lang == "GO") {
+		return compile_go(name);
 	}
 	RunCompilerResult res = RunCompilerResult::failed_result();
 	res.info = "This language is not supported yet.";

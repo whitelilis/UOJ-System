@@ -423,6 +423,9 @@ function echoSubmissionContent($submission, $requirement) {
 				case 'ObjectC':
 					$sh_class = 'sh_cpp';
 					break;
+				case 'GO':
+					$sh_class = 'sh_go';
+					break;
 				default:
 					$sh_class = '';
 					break;

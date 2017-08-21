@@ -433,7 +433,13 @@ void init_conf(const RunProgramConfig &config) {
 	} else if (config.type == "compiler") {
 		syscall_max_cnt[99] = -1;
 		syscall_max_cnt[59] = -1;
-		syscall_max_cnt[35]                   = -1; // for c#        
+		syscall_max_cnt[264                 ] = -1; // for go __NR_renameat
+		syscall_max_cnt[268                 ] = -1; // for go __NR_fchmodat
+		syscall_max_cnt[247                 ] = -1; // for go __NR_waitid
+		syscall_max_cnt[293                 ] = -1; // for go __NR_pipe2
+		syscall_max_cnt[258                 ] = -1; // for go __NR_mkdirat
+		syscall_max_cnt[23                  ] = -1; // for go __NR_select 
+		syscall_max_cnt[35                  ] = -1; // for c#        
 		syscall_max_cnt[__NR_getppid        ] = -1; // for c#
 		syscall_max_cnt[62                  ] = -1; // for c#
 		syscall_max_cnt[108                 ] = -1; // for c#
@@ -648,7 +654,36 @@ void init_conf(const RunProgramConfig &config) {
 		readable_file_name_set.insert("/usr/lib");
 		readable_file_name_set.insert("/usr/lib/libgnustep-base.so.1.24");
 		readable_file_name_set.insert("/proc/");
+	} else if (config.type == "GO") {
+		syscall_max_cnt[231                  ] = -1;
+		syscall_max_cnt[23                  ] = -1;
+		syscall_max_cnt[__NR_select                  ] = -1;
+		syscall_max_cnt[__NR_gettid                  ] = -1;
+		syscall_max_cnt[__NR_sched_getaffinity       ] = -1;
+		syscall_max_cnt[__NR_set_robust_list         ] = -1;
+		syscall_max_cnt[__NR_futex                   ] = -1;
+		syscall_max_cnt[__NR_getdents                ] = -1;
+		syscall_max_cnt[__NR_clone                   ] = -1;
+		syscall_max_cnt[__NR_socket                  ] = -1;
+		syscall_max_cnt[__NR_connect                 ] = -1;
+		syscall_max_cnt[__NR_pipe2                   ] = -1;
+		syscall_max_cnt[__NR_clock_getres            ] = -1;
+		syscall_max_cnt[__NR_epoll_create1           ] = -1;
+		syscall_max_cnt[__NR_eventfd2                ] = -1;
+		syscall_max_cnt[__NR_getuid                  ] = -1;
+		readable_file_name_set.insert("/usr");
+		readable_file_name_set.insert("/usr/bin");
+		readable_file_name_set.insert("/lib/tls/x86_64");
+		readable_file_name_set.insert("/lib/x86_64");
+		readable_file_name_set.insert("/lib/tls");
+		readable_file_name_set.insert("/lib");
+		readable_file_name_set.insert("/usr/lib/tls/x86_64");
+		readable_file_name_set.insert("/usr/lib/x86_64");
+		readable_file_name_set.insert("/usr/lib/tls");
+		readable_file_name_set.insert("/usr/lib");
+		readable_file_name_set.insert("/proc/");
 	}
+
 
 }
 
@@ -687,12 +722,19 @@ inline bool check_safe_syscall(pid_t pid, bool need_show_trace_details) {
 	struct user_regs_struct reg;
 	ptrace(PTRACE_GETREGS, pid, NULL, &reg);
 
-	int cur_instruction = ptrace(PTRACE_PEEKTEXT, pid, reg.rip - 2, NULL) & 0xffff;
+
+	//int cur_instruction = ptrace(PTRACE_PEEKTEXT, pid, reg.rip - 2, NULL) & 0xffff;
+	errno = 0;
+	long tttt = ptrace(PTRACE_PEEKTEXT, pid, reg.rip - 2, NULL);
+	int  mmmm = errno;
+	int cur_instruction = tttt & 0xffff;
 	if (cur_instruction != 0x050f) {
 		if (need_show_trace_details) {
+			fprintf(stderr, "informal syscall got  %ld %d \n", tttt, mmmm);
 			fprintf(stderr, "informal syscall  %d\n", cur_instruction);
 		}
-		return false;
+		// try to ignore it
+		// return false;
 	}
 
 	int syscall = (int)reg.REG_SYSCALL;
