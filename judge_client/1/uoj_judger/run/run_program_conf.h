@@ -655,8 +655,9 @@ void init_conf(const RunProgramConfig &config) {
 		readable_file_name_set.insert("/usr/lib/libgnustep-base.so.1.24");
 		readable_file_name_set.insert("/proc/");
 	} else if (config.type == "GO") {
-		syscall_max_cnt[231                  ] = -1;
-		syscall_max_cnt[23                  ] = -1;
+		syscall_max_cnt[231                          ] = -1;
+		syscall_max_cnt[23                           ] = -1;
+		syscall_max_cnt[24                           ] = -1; // sometimes __NR_sched_yield 
 		syscall_max_cnt[__NR_select                  ] = -1;
 		syscall_max_cnt[__NR_gettid                  ] = -1;
 		syscall_max_cnt[__NR_sched_getaffinity       ] = -1;
