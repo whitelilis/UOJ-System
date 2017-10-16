@@ -366,6 +366,7 @@ void init_conf(const RunProgramConfig &config) {
 		statable_file_name_set.insert("/usr/lib");
 	} else if (config.type == "java7u76") {
 		syscall_max_cnt[99                  ] = -1;
+		syscall_max_cnt[56                  ] = -1;
 		syscall_max_cnt[__NR_gettid         ] = -1;
 		syscall_max_cnt[__NR_set_tid_address] = 1;
 		syscall_max_cnt[__NR_set_robust_list] = 14;
@@ -399,6 +400,7 @@ void init_conf(const RunProgramConfig &config) {
 		statable_file_name_set.insert("/tmp/");
 	} else if (config.type == "java8u31") {
 		syscall_max_cnt[99                  ] = -1;
+		syscall_max_cnt[56                  ] = -1;
 		syscall_max_cnt[__NR_gettid         ] = -1;
 		syscall_max_cnt[__NR_set_tid_address] = 1;
 		syscall_max_cnt[__NR_set_robust_list] = 15;
@@ -433,6 +435,7 @@ void init_conf(const RunProgramConfig &config) {
 	} else if (config.type == "compiler") {
 		syscall_max_cnt[99] = -1;
 		syscall_max_cnt[59] = -1;
+		syscall_max_cnt[56] = -1;
 		syscall_max_cnt[264                 ] = -1; // for go __NR_renameat
 		syscall_max_cnt[268                 ] = -1; // for go __NR_fchmodat
 		syscall_max_cnt[247                 ] = -1; // for go __NR_waitid
