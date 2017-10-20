@@ -198,7 +198,7 @@ bool file_exist(const string &name) {
 }
 */
 
-string file_preview(const string &name, const size_t &len = 100) {
+string file_preview(const string &name, const size_t &len = 1024) {
 	FILE *f = fopen(name.c_str(), "r");
 	if (f == NULL) {
 		return "";
@@ -210,7 +210,7 @@ string file_preview(const string &name, const size_t &len = 100) {
 	}
 	if (res.size() > len + 3) {
 		res.resize(len);
-		res += "...";
+		res += "..."; // buggy,  when end with "'", but removed,  sql error.....
 	}
 	fclose(f);
 	return res;

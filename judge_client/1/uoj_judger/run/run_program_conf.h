@@ -259,6 +259,7 @@ const char *readable_file_name_list_default[] = {
 	"/proc/self/exe",
 	"/etc/timezone",
 	"/usr/share/zoneinfo/",
+	"/usr/share/locale/",
 	"/dev/random",
 	"/dev/urandom",
 	"/proc/meminfo",
