@@ -150,7 +150,7 @@ function getUserLink(username, rating, addSymbol) {
 			text += "</sup>";
 		}
 	}
-	return '<a class="uoj-username" href="' + uojHome + '/user/profile/' + username + '" style="color:' + getColOfRating(rating) + '">' + text + '</a>';
+	return '<a class="uoj-username" href="' + '/user/profile/' + username + '" style="color:' + getColOfRating(rating) + '">' + text + '</a>';
 }
 function getUserSpan(username, rating, addSymbol) {
 	if (!username) {

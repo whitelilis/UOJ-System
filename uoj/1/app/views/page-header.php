@@ -230,7 +230,7 @@
 							<span class="uoj-username" data-rating="<?= Auth::user()['rating'] ?>" data-link="0"><?= Auth::id() ?></span> <?= $new_msg_tot_html ?>
 						</a>
 						<ul class="dropdown-menu" role="menu">
-							<li role="presentation"><a href="<?= HTML::url('/user/profile/' . Auth::id()) ?>"><?= UOJLocale::get('my profile') ?></a></li>
+							<li role="presentation"><a href="/user/profile/<?= Auth::id() ?>"><?= UOJLocale::get('my profile') ?></a></li>
 							<li role="presentation"><a href="<?= HTML::url('/user/msg') ?>"><?= UOJLocale::get('private message') ?>&nbsp;&nbsp;<?= $new_user_msg_num_html ?></a></li>
 							<li role="presentation"><a href="<?= HTML::url('/user/system-msg') ?>"><?= UOJLocale::get('system message') ?>&nbsp;&nbsp;<?= $new_system_msg_num_html ?></a></li>
 							<?php if (isSuperUser(Auth::user())): ?>
@@ -238,13 +238,13 @@
 							<?php endif ?>
 						</ul>
 					</li>
-					<li role="presentation"><a href="<?= HTML::url('/logout?_token='.crsf_token()) ?>"><?= UOJLocale::get('logout') ?></a></li>
+					<li role="presentation"><a href="/logout?_token=<?= crsf_token() ?>"><?= UOJLocale::get('logout') ?></a></li>
 				<?php else: ?>
-					<li role="presentation"><a href="<?= HTML::url('/login') ?>"><?= UOJLocale::get('login') ?></a></li>
-					<li role="presentation"><a href="<?= HTML::url('/register') ?>"><?= UOJLocale::get('register') ?></a></li>
+					<li role="presentation"><a href="/login"><?= UOJLocale::get('login') ?></a></li>
+					<li role="presentation"><a href="/register"><?= UOJLocale::get('register') ?></a></li>
 				<?php endif ?>
 				</ul>
-				<h1 class="hidden-xs"><a href="<?= HTML::url('/') ?>"><img src="<?= HTML::url('/pictures/UOJ_small.png') ?>" alt="UOJ Logo" class="img-rounded" style="width:39px; height:39px;" /></a> <?= $PageMainTitle ?></h1>
+				<h1 class="hidden-xs"><a href="/"><img src="<?= HTML::url('/pictures/UOJ_small.png') ?>" alt="UOJ Logo" class="img-rounded" style="width:39px; height:39px;" /></a> <?= $PageMainTitle ?></h1>
 				<h1 class="visible-xs"><?= $PageMainTitleOnSmall ?></h1>
 			</div>
 			
